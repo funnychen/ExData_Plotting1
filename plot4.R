@@ -11,7 +11,9 @@ power.data$time <- strptime(paste(power.data$date, power.data$time),
                             "%e/%m/%Y %H:%M:%S")
 power.data$date <- as.Date(power.data$date, format = "%e/%m/%Y")
 
-## Plot
+## Plot and save to a png file
+png(filename = "plot4.png")
+
 par(mfrow = c(2, 2))
 
 plot(power.data$time, power.data$global.active.power, type = "l",
@@ -25,12 +27,9 @@ plot(power.data$time, power.data$sub.metering.1, type = "l",
 lines(power.data$time, power.data$sub.metering.2, col = "red")
 lines(power.data$time, power.data$sub.metering.3, col = "blue")
 legend("topright", legend = paste("Sub_metering", 1:3, sep = "_"), 
-       lty = 1, col = c("black", "red", "blue"), y.intersp = 0.2,
-       cex = 0.6, text.width = strwidth("Sub_metering_1") * 0.8, bty = "n")
+       lty = 1, col = c("black", "red", "blue"), bty = "n")
 
 plot(power.data$time, power.data$global.reactive.power, type = "l",
      xlab = "datetime", ylab = "Global_reactive_power")
 
-## Save to a png file
-dev.copy(png, file = "plot4.png", width = 480, height = 480)
 dev.off()
